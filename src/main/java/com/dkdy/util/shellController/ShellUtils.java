@@ -2,8 +2,9 @@ package com.dkdy.util.shellController;
 import java.io.BufferedReader;  
 import java.io.InputStreamReader;  
   
-public class ShellUtils {  
-    public static String exeCmd(String commandStr) {  
+public class ShellUtils {
+
+    public static String exeCmd(String commandStr) {
         BufferedReader br = null; 
         StringBuilder sb=null;
         try {  
@@ -30,9 +31,5 @@ public class ShellUtils {
         }  
         return sb.toString();
     }  
-  
-    public static void main(String[] args) {  
-        String commandStr = "ping www.520may.com";  
-        //String commandStr = "ipconfig";    
-    }  
+
 }

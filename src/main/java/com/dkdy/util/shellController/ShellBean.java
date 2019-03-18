@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import com.alibaba.fastjson.JSON;
 
 public class ShellBean implements Serializable {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private  ArrayList<String> list;
 
