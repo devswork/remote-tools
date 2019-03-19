@@ -1,8 +1,19 @@
 package com.util;
-import java.io.BufferedReader;  
-import java.io.InputStreamReader;  
-  
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 public class ShellUtils {
+
+    public static String exs(ShellBean shell){
+        String result = "";
+        ArrayList<String> list = shell.getList();
+        for (String string : list) {
+            result = ShellUtils.exeCmd(string);
+        }
+        return result;
+    }
 
     public static String exeCmd(String commandStr) {
         BufferedReader br = null; 
@@ -17,7 +28,7 @@ public class ShellUtils {
             } 
         } catch (Exception e) {  
             e.printStackTrace();  
-        }   
+        }
         finally  
         {  
             if (br != null)  

