@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.github.devswork</groupId>
     <artifactId>spring-boot-starter-data-serialize</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <name>devswork</name>
     <description>devswork tools</description>
 
