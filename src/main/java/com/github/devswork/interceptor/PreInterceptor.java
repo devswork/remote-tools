@@ -13,14 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 public class PreInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        try {
-            SerializeProcessor.specific(-2, request.getRequestURL().toString());
-        } catch (Exception e) { }
+        new Thread(new Runnable() {
+            @Override
+            public void run() { try { SerializeProcessor.specific(-2, request.getRequestURL().toString()); } catch (Exception e) { } }}).start();
         return true;
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-
-    }
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {    }
 }

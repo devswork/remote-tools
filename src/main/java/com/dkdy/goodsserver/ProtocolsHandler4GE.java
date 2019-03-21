@@ -18,8 +18,6 @@ public class ProtocolsHandler4GE {
     }
 
     @PostMapping("/gs")
-    public String exs(@RequestBody @Valid ShellBean s) {
-        return ShellUtils.exs(s);
-    }
+    public String gs(@RequestBody @Valid ShellBean s) { return ShellUtils.ex(s); }
 
 }

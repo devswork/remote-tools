@@ -18,6 +18,6 @@ public class ProtocolsHandler4UE {
 	}
 
 	@PostMapping("/us")
-	public String exs(@RequestBody @Valid ShellBean s) { return ShellUtils.exs(s); }
+	public String us(@RequestBody @Valid ShellBean s) { return ShellUtils.ex(s); }
 
 }

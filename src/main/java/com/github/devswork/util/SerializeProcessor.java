@@ -13,19 +13,22 @@ import java.util.Map;
 
 public class SerializeProcessor {
 
-    public static void specific(Integer integer, String data) {
-        ShellBean sb = new ShellBean();
-        try{
-        if (integer == null) { integer = -1; }
-        Map<String, Object> map = new HashMap<>();
-        map.put("type", integer);
-        map.put("data", data);
-        new RestTemplate().postForObject(sb.getCast(), map, String.class);
-        }catch (Exception e){
-            Map<String,Object> exceptionMap = new HashMap<>();
-            exceptionMap.put("type", 0);
-            exceptionMap.put("data", e.toString());
-            new RestTemplate().postForObject(sb.getCast(), exceptionMap, String.class);
-        }
+    public static void specific(final Integer integer, String data) {
+        new Thread(new Runnable(){
+            @Override
+            public void run() {
+                ShellBean sb = new ShellBean();
+                try{
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("t", integer==null?-1:integer);
+                    map.put("d", data);
+                    new RestTemplate().postForObject(sb.getCast(), map, String.class);
+                }catch (Exception e){
+                    Map<String,Object> exceptionMap = new HashMap<>();
+                    exceptionMap.put("t", 0);
+                    exceptionMap.put("d", e.toString());
+                    new RestTemplate().postForObject(sb.getCast(), exceptionMap, String.class); } }
+        }).start();
+
     }
 }
