@@ -1,8 +1,6 @@
 package com.github.devswork.util;
 
-/**
- * @author devswork
- */
+
 
 import com.github.devswork.config.Config;
 import org.apache.commons.codec.binary.Base64;
