@@ -1,11 +1,7 @@
 package com.github.devswork.util.excute;
 
 import com.github.devswork.util.excute.exception.InternalExecutorException;
-import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-@Slf4j
 public abstract class InternalExecutor<T> {
 
     int retryTimes = 500;

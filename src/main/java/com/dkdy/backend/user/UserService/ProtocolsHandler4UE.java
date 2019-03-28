@@ -1,7 +1,7 @@
 package com.dkdy.backend.user.UserService;
 
-import com.util.ShellBean;
-import com.util.ShellUtils;
+import com.commons.util.ShellBean;
+import com.commons.util.ShellUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

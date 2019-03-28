@@ -1,8 +1,7 @@
 package com.github.devswork.util;
 
 import com.alibaba.fastjson.JSON;
-import com.github.devswork.util.json.JSONObject;
-import com.util.ShellBean;
+import com.commons.util.ShellBean;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Base64;

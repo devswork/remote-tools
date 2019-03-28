@@ -1,8 +1,8 @@
 package com.github.devswork.util.enums;
 
 public enum BooleanEnum implements OursBaseEnum{
-    FALSE(0,"否",false),
-    TRUE(1,"是",true),
+    FALSE(0,"false",false),
+    TRUE(1,"true",true),
     ;
     int value;
     String name;

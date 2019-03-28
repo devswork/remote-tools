@@ -5,17 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataRecord {
-	/** 列名称  */
+
     private String[] columnName;
-    /** 列宽  */
+
     private short[] columnWith;
-    /** 工作表名  */
     private String sheetName;
-    /** 标题 */
     private String title;
-    /** 子标题 */
     private String subTitle;
-    /** 数据行 */
     private List<DataRow> row = new ArrayList<DataRow>();
 
     public DataRecord() {
@@ -25,14 +21,9 @@ public class DataRecord {
         return columnName;
     }
 
-    /**
-     * 设置列的名称
-     * 
-     * @param columnName
-     */
     public void setColumnName(String[] columnName) {
         if(columnName.length > Short.MAX_VALUE){
-            throw new IllegalArgumentException("columnName的长度应该小于 " + Short.MAX_VALUE);
+            throw new IllegalArgumentException("columnName length must be < " + Short.MAX_VALUE);
         }
 
         this.columnName = columnName;
@@ -42,14 +33,10 @@ public class DataRecord {
         return columnWith;
     }
 
-    /**
-     * 设置列的宽度，默认为12
-     *
-     * @param columnWith
-     */
+
     public void setColumnWith(short[] columnWith) {
         if(columnWith.length > Short.MAX_VALUE){
-            throw new IllegalArgumentException("columnWith的长度应该小于 " + Short.MAX_VALUE);
+            throw new IllegalArgumentException("columnWith length must be <" + Short.MAX_VALUE);
         }
         this.columnWith = columnWith;
     }

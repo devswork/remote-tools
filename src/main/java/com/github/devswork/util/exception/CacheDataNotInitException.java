@@ -1,8 +1,6 @@
 package com.github.devswork.util.exception;
 
-/**
- * 缓存数据还没有初始化
- */
+
 public class CacheDataNotInitException extends Exception{
     public CacheDataNotInitException() {
     }

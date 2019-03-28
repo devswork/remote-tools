@@ -11,48 +11,25 @@ import java.util.Date;
 
 
 public class DataCell {
-    /**
-     * 未知
-     */
+
     public static final int DATA_TYPE_UNKNOW = -1;
-    /**
-     * 小数
-     */
+
     public static final int DATA_TYPE_NUMERIC = 0;
-    /**
-     * 文本
-     */
+
     public static final int DATA_TYPE_TEXT = 1;
-    /**
-     * 空白
-     */
+
     public static final int DATA_TYPE_BLANK = 3;
-    /**
-     * 日期
-     */
+
     public static final int DATA_TYPE_DATE = 5;
-    /**
-     * 日期
-     */
+
     public static final int DATA_TYPE_DATETIME = 6;
-    /**
-     * 整数
-     */
+
     public static final int DATA_TYPE_INTEGER = 7;
 
-    /**
-     * 内容
-     */
     private String content;
 
-    /**
-     * 类型
-     */
     private int type = DATA_TYPE_UNKNOW;
 
-    /**
-     * 小数点后几位 DATA_TYPE_NUMERIC 类型用到
-     */
     private int dotNum = 2;
 
     public DataCell(String content) {
@@ -92,10 +69,8 @@ public class DataCell {
         if (_content instanceof String) {
             this.setType(DATA_TYPE_TEXT);
         } else if (_content instanceof Number) {
-            //整数类型
             if (_content instanceof Integer || _content instanceof Long || _content instanceof BigInteger) {
                 this.setType(DATA_TYPE_INTEGER);
-                //如果是整形的bigdecimal
             } else if (_content instanceof BigDecimal && BigDecimalUtil.isInteger((BigDecimal) _content)) {
                 this.setType(DATA_TYPE_INTEGER);
             } else {

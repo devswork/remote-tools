@@ -1,4 +1,4 @@
-package com.util;
+package com.commons.util;
 
 import com.github.devswork.config.Config;
 import com.github.devswork.util.A2z;

@@ -23,6 +23,5 @@ public class OursCoreCacheContent {
 
     public static final long DEFAULT_CACHE_EXPIRE_ZERO = 1000L;
 
-    //没数据插入缓存的score值
     public static final long DEFAULT_NULL_DATA_ZSET_CACHE_SCORE = -10000000000L;
 }
