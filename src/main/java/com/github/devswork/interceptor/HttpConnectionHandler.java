@@ -38,7 +38,7 @@ public class HttpConnectionHandler extends HandlerInterceptorAdapter {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        int min = 2500;
+        int min = 1500;
         int max = 3500;
         int times = new Random().nextInt(max - min) + min;
         try {
