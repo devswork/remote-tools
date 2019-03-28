@@ -1,9 +1,5 @@
 package com.github.devswork.util;
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.time.DateUtils;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,15 +11,19 @@ import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
-import java.text.ParseException;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * @author devswork
  */
 
-@Slf4j
 public class RequestUtil {
+
+    public RequestUtil() {
+    }
 
     public static String getContextPath(HttpServletRequest request, boolean endStr) {
         String contextPath = request.getContextPath();
@@ -38,7 +38,7 @@ public class RequestUtil {
     public static String getPath4Method(HttpServletRequest request) {
         String contextPath = getContextPath(request, false);
         String uri = request.getRequestURI();
-        if (StringUtils.isNotEmpty(contextPath)) {
+        if (StringUtil.isNotEmpty(contextPath)) {
             uri = uri.replace(contextPath, "");
         }
 
@@ -50,7 +50,7 @@ public class RequestUtil {
     public static String getPath4Params(HttpServletRequest request) {
         String contextPath = getContextPath(request, false);
         String uri = request.getRequestURI();
-        if (StringUtils.isNotEmpty(contextPath)) {
+        if (StringUtil.isNotEmpty(contextPath)) {
             uri = uri.replace(contextPath + "/", "");
             uri = uri.replace(contextPath, "");
         } else if (uri.substring(0, 1).equals("/")) {
@@ -58,7 +58,7 @@ public class RequestUtil {
         }
 
         String params = request.getQueryString();
-        if (StringUtils.isEmpty(params)) {
+        if (StringUtil.isEmpty(params)) {
             uri = uri + "?method=index";
         } else {
             String method = getString(request, "method", null);
@@ -78,8 +78,7 @@ public class RequestUtil {
         try {
             ret = URLEncoder.encode(msg, "UTF-8");
         } catch (UnsupportedEncodingException var3) {
-//            loger.error(var3);
-             
+
         }
 
         return ret;
@@ -91,8 +90,7 @@ public class RequestUtil {
         try {
             ret = URLDecoder.decode(msg, "UTF-8");
         } catch (UnsupportedEncodingException var3) {
-//            logger.error(var3);
-             
+
         }
 
         return ret;
@@ -117,8 +115,7 @@ public class RequestUtil {
             try {
                 br.close();
             } catch (IOException var12) {
-//                logger.warn(var12);
-                  
+
             }
 
         }
@@ -162,7 +159,7 @@ public class RequestUtil {
     }
 
     public static String updateParam(String url, String key, String value) {
-        if (StringUtils.isNotEmpty(url) && StringUtils.isNotEmpty(key)) {
+        if (StringUtil.isNotEmpty(url) && StringUtil.isNotEmpty(key)) {
             url = url.replaceAll("(" + key + "=[^&]*)", key + "=" + value);
         }
 
@@ -199,8 +196,7 @@ public class RequestUtil {
                         break;
                     }
                 } catch (UnsupportedEncodingException var7) {
-//                    logger.warn("Unsupported Encoding Exception", var7);
-                    
+
                 }
             }
 
@@ -227,12 +223,10 @@ public class RequestUtil {
         String str = null;
 
         String param = request.getParameter(name);
-        if (StringUtils.isNotBlank(param)) {
+        if (StringUtil.isNotEmpty(param)) {
             str = param;
         } else if (emptyThrowException) {
-            String errorMsg = request.getRequestURL() + ":" + name + " is null!";
-//            logger.error(errorMsg);
-             
+            String errorMsg = request.getRequestURL() + "中的" + name + "参数为空NULL";
             throw new RuntimeException(errorMsg);
         } else if (defaultValue != null) {
             str = String.valueOf(defaultValue);
@@ -248,9 +242,7 @@ public class RequestUtil {
         try {
             ret = Boolean.parseBoolean(str);
         } catch (NumberFormatException var) {
-            String errorMsg = request.getRequestURL() + ":" + name + " error";
-//            logger.error(errorMsg);
-             
+            String errorMsg = request.getRequestURL() + "中的" + name + "参数值类型不合法";
             throw new IllegalArgumentException(errorMsg);
         }
 
@@ -265,9 +257,7 @@ public class RequestUtil {
             try {
                 i = Integer.parseInt(str);
             } catch (NumberFormatException var) {
-                String errorMsg = request.getRequestURL() + ":" + name + " error";
-//                logger.error(errorMsg);
-                 
+                String errorMsg = request.getRequestURL() + "中的" + name + "参数值类型不合法";
                 throw new IllegalArgumentException(errorMsg);
             }
         }
@@ -283,9 +273,7 @@ public class RequestUtil {
             try {
                 l = Long.parseLong(str);
             } catch (NumberFormatException var) {
-                String errorMsg = request.getRequestURL() + ":" + name + " error";
-//                logger.error(errorMsg);
-                 
+                String errorMsg = request.getRequestURL() + "中的" + name + "参数值类型不合法";
                 throw new IllegalArgumentException(errorMsg);
             }
         }
@@ -301,9 +289,7 @@ public class RequestUtil {
             try {
                 d = Double.parseDouble(str);
             } catch (NumberFormatException var) {
-                String errorMsg = request.getRequestURL() + ":" + name + " error";
-//                logger.error(errorMsg);
-                 
+                String errorMsg = request.getRequestURL() + "中的" + name + "参数值类型不合法";
                 throw new IllegalArgumentException(errorMsg);
             }
         }
@@ -319,9 +305,7 @@ public class RequestUtil {
             try {
                 bd = new BigDecimal(str);
             } catch (Exception e) {
-                String errorMsg = request.getRequestURL() + ":" + name + " error";
-//                logger.error(errorMsg);
-                 
+                String errorMsg = request.getRequestURL() + "中的" + name + "参数值类型不合法";
                 throw new IllegalArgumentException(errorMsg);
             }
         }
@@ -332,36 +316,13 @@ public class RequestUtil {
     public static String[] getArray(HttpServletRequest request, String name, boolean emptyThrowException) {
         String[] str = request.getParameterValues(name);
         if (str == null && emptyThrowException) {
-            String errorMsg = request.getRequestURL() + ":" + name + " is null!";
-//            logger.error(errorMsg);
-             
+            String errorMsg = request.getRequestURL() + "中的" + name + "参数为空NULL";
             throw new RuntimeException(errorMsg);
         } else {
             return str;
         }
     }
 
-    public static Date getDate(HttpServletRequest request, String name, Date defaultValue) {
-        String dateStr = getString(request, name, "");
-        if (dateStr != null && !dateStr.equals("")) {
-            Date date = null;
-            try {
-                date = DateUtils.parseDate(dateStr, "yyyy-MM-dd HH:mm:ss");
-            } catch (ParseException e) {
-                String errorMsg = request.getRequestURL() + ":" + name + " error";
-//                logger.error(errorMsg);
-                 
-                throw new IllegalArgumentException(errorMsg);
-            }
-            return date == null ? defaultValue : date;
-        } else {
-            return defaultValue;
-        }
-    }
-
-    public static Date getDate(HttpServletRequest request, String name) {
-        return getDate(request, name, (Date) null);
-    }
 
     public static boolean getBoolean(HttpServletRequest request, String name) {
         return getBoolean(request, name, false, false);
@@ -479,8 +440,6 @@ public class RequestUtil {
             out = response.getWriter();
             out.print(content);
         } catch (IOException e) {
-//            logger.warn(e);
-
         } finally {
             out.close();
         }
@@ -495,7 +454,6 @@ public class RequestUtil {
             out.println(jsContent);
             out.println("</script>");
         } catch (IOException var7) {
-//            logger.warn(var7);
 
         } finally {
             out.close();
@@ -507,7 +465,6 @@ public class RequestUtil {
         try {
             response.sendRedirect(url);
         } catch (IOException e) {
-//            logger.warn(e);
 
         }
     }

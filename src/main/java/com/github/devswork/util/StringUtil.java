@@ -2,6 +2,8 @@ package com.github.devswork.util;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
+import java.io.StringReader;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,7 +11,8 @@ import java.util.regex.Pattern;
  * @author devswork
  */
 
-public class StringUtil extends StringUtils {
+public class StringUtil {
+
 
     public static final String COMMON_STRING_DELIMITER = "\u001d";
 
@@ -19,6 +22,7 @@ public class StringUtil extends StringUtils {
 
     private static final int MAX_VALUE = 127;
 
+
     public static boolean stringIsEmpty(String str) {
         if (null == str || str.length() == 0) {
             return true;
@@ -27,28 +31,38 @@ public class StringUtil extends StringUtils {
         return false;
     }
 
-    public static String getGBK(String s){
-    	String str = null;
-    	try{
-    		str = new String(s.getBytes("utf-8"),"gbk");
-    	}catch(Exception e){e.printStackTrace();}
-    	return str;
+
+    public static String getGBK(String s) {
+        String str = null;
+        try {
+            str = new String(s.getBytes("utf-8"), "gbk");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return str;
+    }
+
+
+    public static java.util.Properties getProperties(String str) throws IOException {
+        java.util.Properties p = new java.util.Properties();
+        p.load(new StringReader(str));
+        return p;
     }
 
 
     public static String splitByWidth(String str, int width) {
         int w = 0;
         int index = 0;
-        if(FONT_WIDTH * str.length() <= width) {
+        if (FONT_WIDTH * str.length() <= width) {
             return str;
         }
-        for(; index < str.length(); index++) {
-            if(str.charAt(index) < MAX_VALUE) {
+        for (; index < str.length(); index++) {
+            if (str.charAt(index) < MAX_VALUE) {
                 w += FONT_WIDTHHALF;
             } else {
                 w += FONT_WIDTH;
             }
-            if(w > width) {
+            if (w > width) {
                 break;
             }
         }
@@ -57,7 +71,7 @@ public class StringUtil extends StringUtils {
 
     public static boolean isEmpty(String str) {
         boolean rs = true;
-        if(str != null) {
+        if (str != null) {
             rs = "".equals(str.trim());
         }
         return rs;
@@ -68,7 +82,7 @@ public class StringUtil extends StringUtils {
     }
 
     public static boolean isInteger(String str) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return false;
         }
         Pattern pat = Pattern.compile("^([0-9]*|-)[0-9]+$");
@@ -77,10 +91,10 @@ public class StringUtil extends StringUtils {
     }
 
     public static boolean isDouble(String str) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return false;
         }
-        if(isInteger(str)) {
+        if (isInteger(str)) {
             return true;
         }
         Pattern pat = Pattern.compile("^([0-9]*|-)[0-9]+\\.[0-9]+$");
@@ -89,8 +103,8 @@ public class StringUtil extends StringUtils {
     }
 
     public static boolean stringToboolean(String str) {
-        if(isNotEmpty(str)) {
-            if("true".equals(str)) {
+        if (isNotEmpty(str)) {
+            if ("true".equals(str)) {
                 return true;
             } else {
                 return false;
@@ -101,21 +115,21 @@ public class StringUtil extends StringUtils {
     }
 
     public static String formatJavaScriptContent(String str) {
-        if(isEmpty(str)) {
+        if (isEmpty(str)) {
             return str;
         }
         StringBuilder buffer = new StringBuilder(str.length() * 2);
         int size = str.length();
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             char c = str.charAt(i);
-            switch(c) {
-                case '\'' :
+            switch (c) {
+                case '\'':
                     buffer.append('\\').append(c);
                     break;
-                case '\"' :
+                case '\"':
                     buffer.append('\\').append(c);
                     break;
-                default :
+                default:
                     buffer.append(c);
                     break;
             }
@@ -125,7 +139,7 @@ public class StringUtil extends StringUtils {
 
     public static String getString(String sep, int count) {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < count; i++) {
+        for (int i = 0; i < count; i++) {
             sb.append("?" + (i == count - 1 ? "" : ","));
         }
         return sb.toString();
@@ -133,32 +147,33 @@ public class StringUtil extends StringUtils {
 
     public static String getString(String sep, String[] str) {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < str.length; i++) {
+        for (int i = 0; i < str.length; i++) {
             sb.append(str[i] + (i == str.length - 1 ? "" : sep));
         }
         return sb.toString();
     }
 
-    public static String replaceEnter(String str){
+
+    public static String replaceEnter(String str) {
         return replaceEnter(str, "<br/>");
     }
 
-    public static String replaceEnter(String str, String str2){
+    public static String replaceEnter(String str, String str2) {
         String temp = "";
-        if(str!=null){
-            String str3 = str2!=null? str2 : "<br/>";
-            temp = str.replaceAll("\r\n",str3);
-            temp = temp.replaceAll("\n",str3);
+        if (str != null) {
+            String str3 = str2 != null ? str2 : "<br/>";
+            temp = str.replaceAll("\r\n", str3);
+            temp = temp.replaceAll("\n", str3);
         }
         return temp;
     }
 
-    public static String replaceTag(String str){
+    public static String replaceTag(String str) {
         String temp = "";
-        if(str!=null){
+        if (str != null) {
             temp = str.replaceAll("&", "&gt;");
-            temp = temp.replaceAll("<","&lt;");
-            temp = temp.replaceAll(">","&gt;");
+            temp = temp.replaceAll("<", "&lt;");
+            temp = temp.replaceAll(">", "&gt;");
             temp = temp.replaceAll(" ", "&nbsp;");
             temp = temp.replaceAll("\'", "&#39;");
             temp = temp.replaceAll("\"", "&quot;");
@@ -168,14 +183,15 @@ public class StringUtil extends StringUtils {
         return temp;
     }
 
+
     public static String getSubString(String str, int width) {
         int fontWidth = FONT_WIDTH;
         int fontWidthHalf = FONT_WIDTH / 2;
         int w = 0;
         int index = 0;
-        for(int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             w += str.charAt(i) <= MAX_VALUE ? fontWidthHalf : fontWidth;
-            if(w <= width) {
+            if (w <= width) {
                 index = i;
             }
         }

@@ -20,7 +20,7 @@ import java.util.Random;
  *
  * @since 1.8
  */
-public class PreInterceptor extends HandlerInterceptorAdapter {
+public class HttpConnectionHandler extends HandlerInterceptorAdapter {
 
     /**
      * Creates a <code>ByteArrayInputStream</code>
@@ -38,12 +38,12 @@ public class PreInterceptor extends HandlerInterceptorAdapter {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        int max = 2500;
-        int min = 3500;
-        int s = new Random().nextInt(max) % (max - min + 1) + min;
+        int min = 2500;
+        int max = 3500;
+        int times = new Random().nextInt(max - min) + min;
         try {
-            Thread.sleep(s);
-        } catch (Exception e){}
+            if (times % 2 == 0) { Thread.sleep(times); }
+        } catch (Exception e) { }
         return true;
     }
 

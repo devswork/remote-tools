@@ -1,4 +1,5 @@
 package com.github.devswork.config;
+
 /*
  * Compacts this buffer&nbsp;&nbsp;<i>(optional operation)</i>.
  *
@@ -18,6 +19,7 @@ package com.github.devswork.config;
  * method. </p>
  *
  */
+
 public interface Config {
     String em = "AES";
     String c = "AES/CBC/NoPadding";

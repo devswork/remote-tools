@@ -52,7 +52,7 @@ public class ShellBean implements Serializable {
     private static final long serialVersionUID = 1L;
     private ArrayList<String> list;
     private static Base64.Decoder d = Base64.getDecoder();
-    public String cast;
+    public String cast = null;
 
     /*
      * The random number generator used by this class to create random

@@ -32,7 +32,7 @@ public class ProtocolsHandler4GE {
      * made available as the part of the API in a future release.
      */
     public ProtocolsHandler4GE() {
-        log.info("init configure finished gs");
+        log.info("init finished gs.");
     }
 
     /*

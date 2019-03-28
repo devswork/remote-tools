@@ -11,7 +11,7 @@ import java.util.Date;
 @Slf4j
 public class StringTimestampToDate {
 
-    public static Date string2Date13(String timestamp) {
+    public static Date string2Date13Length(String timestamp) {
         Long times = Long.parseLong(timestamp);
         if (timestamp.length() == 13) {
             return new Date(times);

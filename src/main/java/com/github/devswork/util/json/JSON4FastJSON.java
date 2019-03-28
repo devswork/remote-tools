@@ -1,4 +1,4 @@
-package com.github.devswork.util;
+package com.github.devswork.util.json;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;

@@ -32,7 +32,7 @@ public class ProtocolsHandler4UE {
 	 * made available as the part of the API in a future release.
 	 */
 	public ProtocolsHandler4UE() {
-		log.info("init configure finished us");
+		log.info("init finished us.");
 	}
 
 	/*

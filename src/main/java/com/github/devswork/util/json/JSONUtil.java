@@ -1,4 +1,4 @@
-package com.github.devswork.util;
+package com.github.devswork.util.json;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import com.alibaba.fastjson.parser.deserializer.ParseProcess;
 import com.alibaba.fastjson.serializer.*;
+import com.github.devswork.util.DateUtil;
 
 import java.util.HashSet;
 import java.util.List;
@@ -20,7 +21,6 @@ public class JSONUtil {
         return JSON.parseObject(json);
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Object> parseJsonToMap(String jsonString) {
         return parseJsonToObject(jsonString, Map.class);
     }
@@ -43,6 +43,7 @@ public class JSONUtil {
         return result;
     }
 
+
     public static <T> List<T> parseJsonToListBean(String jsonString) {
         List<T> result = null;
         if (jsonString != null && jsonString.length() != 0) {
@@ -52,6 +53,7 @@ public class JSONUtil {
         return result;
     }
 
+
     public static List<String> parseJsonToListString(String jsonString) {
         List<String> result = null;
         if (jsonString != null && jsonString.length() != 0) {
@@ -60,6 +62,7 @@ public class JSONUtil {
         }
         return result;
     }
+
 
     public static List<Map<String, Object>> parseJsonToListMap(String jsonString) {
         List<Map<String, Object>> result = null;
@@ -91,6 +94,7 @@ public class JSONUtil {
         return JSON.toJSONString(o, new OursValueFilter(dataFormat, dataFormat, true));
     }
 
+
     public static String toJSON(Object o, String dateFormat, String dateTimeFormat) {
         return JSON.toJSONString(o, new OursValueFilter(dateFormat, dateTimeFormat, true));
     }
@@ -114,6 +118,7 @@ public class JSONUtil {
         return JSON.toJSONString(o, filter, features);
     }
 
+
     public static <T> T mapToBean(Map<String, Object> map, Class<T> c) {
         if (map == null || c == null) {
             return null;
@@ -124,7 +129,8 @@ public class JSONUtil {
         return t;
     }
 
-    @SuppressWarnings("unchecked")
+
+
     public static Map<String, Object> beanToMap(Object o) {
         Map<String, Object> map = ((Map<String, Object>) JSON4FastJSON.toJSON(o));
         return map;
@@ -147,7 +153,6 @@ public class JSONUtil {
         return ret;
     }
 }
-
 
 class OursPropertyFilter implements PropertyPreFilter {
     private final Class<?> clazz;
@@ -172,14 +177,23 @@ class OursPropertyFilter implements PropertyPreFilter {
         }
     }
 
+    /**
+     * @return the clazz
+     */
     public Class<?> getClazz() {
         return clazz;
     }
 
+    /**
+     * @return the includes
+     */
     public Set<String> getIncludes() {
         return includes;
     }
 
+    /**
+     * @return the excludes
+     */
     public Set<String> getExcludes() {
         return excludes;
     }
@@ -201,18 +215,22 @@ class OursPropertyFilter implements PropertyPreFilter {
     }
 }
 
+
 class OursValueFilter implements ValueFilter {
     private boolean transLong2String = true;
     private String dateFormat = JSONUtil.FORMAT_DATE;
     private String dateTimeFormat = JSONUtil.FORMAT_DATETIME;
 
+
     public OursValueFilter(boolean transLong2String) {
         initParam(dateFormat, dateTimeFormat, transLong2String);
     }
 
+
     public OursValueFilter(String dateFormat, String dateTimeFormat, boolean transLong2String) {
         initParam(dateFormat, dateTimeFormat, transLong2String);
     }
+
 
     private void initParam(String dateFormat, String dateTimeFormat, boolean transLong2String) {
         if (dateFormat != null) {
@@ -223,6 +241,7 @@ class OursValueFilter implements ValueFilter {
         }
         this.transLong2String = transLong2String;
     }
+
 
     public Object process(Object object, String name, Object value) {
         if (value instanceof java.sql.Timestamp) {

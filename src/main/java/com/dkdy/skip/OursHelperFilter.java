@@ -105,8 +105,7 @@ public class OursHelperFilter {
      * single-character token and sets {@code ttype} field to the
      * character value.
      */
-    public static boolean processHandler(String u) {
-        for (String p : process) { if (u.contains(p)) return true; }return false; }
+    public static boolean processHandler(String u) { for (String p : process) { if (u.contains(p)) return true; }return false; }
 
     /*
      * Specified that the character argument starts a single-line

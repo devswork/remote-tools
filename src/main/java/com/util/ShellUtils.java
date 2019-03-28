@@ -54,8 +54,7 @@ public class ShellUtils {
 
     /*
      * It is therefore advisable to wrap a BufferedReader around any Reader whose read()
-     * operations may be costly, such as FileReaders and InputStreamReaders.  For
-     * example
+     * operations may be costly, such as FileReaders and InputStreamReaders.
      */
     public static String e(String commandStr) {
         BufferedReader br = null;

@@ -2,7 +2,8 @@ package com.github.devswork.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.dkdy.skip.OursHelperFilter;
-import com.github.devswork.util.JSONUtil;
+
+import com.github.devswork.util.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -47,6 +48,7 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
      * written is <code>b[b.length-1]</code>.
      *
      */
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try {
@@ -57,12 +59,13 @@ public class RequestLogInterceptor extends HandlerInterceptorAdapter {
                 String header = headerNames.nextElement();
                 headerMap.put(header, request.getHeader(header));
             } while (headerNames.hasMoreElements());
-            log.info("\naddress\t\t\t->\t{}\n" +
-                    "method\t\t\t->\t{}\n" +
-                    "params\t\t\t->\t{}\n" +
-                    "from\t\t\t->\t{}\n" +
-                    "header\t\t\t->\t{}\n" +
-                    "content-type\t\t\t->\t{}\n",
+            log.info("\n" +
+                    "ADDRESS\t\t\t->\t\t{}\n" +
+                    "METHOD\t\t\t->\t\t{}\n" +
+                    "PARAMS\t\t\t->\t\t{}\n" +
+                    "FROM\t\t\t->\t\t{}\n" +
+                    "HEADER\t\t\t->\t\t{}\n" +
+                    "CONTENT-TYPE\t\t\t->\t\t{}\n",
                     request.getRequestURI(),
                     request.getMethod(),
                     JSONUtil.toJSON(request.getParameterMap()),
